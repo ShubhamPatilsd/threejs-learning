@@ -20,7 +20,7 @@ function App() {
     scene.background = new THREE.Color(0x4e9fe5);
 
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, 800);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     camera.position.set(10, 2, 0);
     renderer.render(scene, camera);
 
