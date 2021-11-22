@@ -1,5 +1,3 @@
-import logo from "./logo.svg";
-import "./App.css";
 import * as THREE from "three";
 import { useEffect } from "react";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -19,16 +17,12 @@ function App() {
       canvas: document.querySelector("#bg"),
     });
 
+    scene.background = new THREE.Color(0x4e9fe5);
+
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    //camera.position.setZ(30);
+    renderer.setSize(window.innerWidth, 800);
     camera.position.set(10, 2, 0);
     renderer.render(scene, camera);
-
-    const geometry = new THREE.BoxGeometry(3, 1, 3);
-    const material = new THREE.MeshStandardMaterial({
-      color: 0xff6347,
-    });
 
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
     hemiLight.position.set(0, 20, 0);
@@ -38,28 +32,34 @@ function App() {
     dirLight.position.set(-3, 10, -10);
     scene.add(dirLight);
 
-    //scene.add(new THREE.Mesh(geometry, material));
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    ambientLight.position.set(0, 0, 0);
+    scene.add(ambientLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
     const loader = new GLTFLoader();
 
-    let planeObj;
-
     loader.load("/small-airplane-v3.glb", function (gltf) {
-      gltf.scene.rotateX(0.3);
+      gltf.scene.scale.set(0.8, 0.8, 0.8);
       scene.add(gltf.scene);
-      planeObj = gltf.scene;
     });
+
+    const resizeWindow = () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      camera.aspect = window.innerWidth / window.innerHeigh;
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+    };
+
+    window.addEventListener("resize", resizeWindow);
 
     function animate() {
       requestAnimationFrame(animate);
 
-      if (planeObj) {
-        planeObj.rotation.x += 0.001;
-        planeObj.rotation.y += 0.005;
-        //planeObj.rotation.z += 0.01;
-      }
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 4.0;
 
       controls.update();
 
