@@ -5,4 +5,4 @@ This is the code for a [tutorial that I wrote](https://dev.to/shubhampatilsd/get
 To use to the code, simply `git clone` it and run it with `yarn start`
 
 Attribution for model:
-Small Airplane by Vojtěch Balák [CC-BY](https://creativecommons.org/licenses/by/3.0/) via Poly Pizza(https://poly.pizza/m/7cvx6ex-xfL)
+Small Airplane by Vojtěch Balák [CC-BY](https://creativecommons.org/licenses/by/3.0/) via [Poly Pizza](https://poly.pizza/m/7cvx6ex-xfL)
